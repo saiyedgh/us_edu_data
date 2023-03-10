@@ -52,7 +52,7 @@ test_data_id <- gss_doc[[3]][[1]]
 
 test_data_01 <- gss_get_marginals(varnames = c("degree", "race", "sex"))
 
-
+# test comment
 
 #write_csv(the_raw_data, "inputs/data/raw_data.csv") 
          
