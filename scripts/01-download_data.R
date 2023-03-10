@@ -48,6 +48,10 @@ gss_doc
 gss_doc %>% filter(id == "degree") %>% 
   select(id, description, text)
 
+test_data_id <- gss_doc[[3]][[1]]
+
+test_data_01 <- gss_get_marginals(varnames = c("degree", "race", "sex"))
+
 
 
 #write_csv(the_raw_data, "inputs/data/raw_data.csv") 
