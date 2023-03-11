@@ -4,7 +4,7 @@
 # Data: 11 February 2023 [...UPDATE THIS...]
 # Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
 # License: MIT
-# Pre-requisites: [...remotes  drat...]
+# Pre-requisites: [...remotes  drat kjhealy/gssr...]
 # Any other information needed? [...UPDATE THIS...]
 
 
@@ -51,6 +51,9 @@ gss_doc %>% filter(id == "degree") %>%
 test_data_id <- gss_doc[[3]][[1]]
 
 test_data_01 <- gss_get_marginals(varnames = c("degree", "race", "sex"))
+
+# gss_doc |>
+#  gss_get_props(varnames = c("id", "age", "degree", "sex", "race", "region"))
 
 # test comment
 
