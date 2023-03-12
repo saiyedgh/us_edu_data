@@ -22,6 +22,136 @@ library(tidyverse)
 library(palmerpenguins)
 ```
 
+```{r}
+library(foreign)
+library(here)
+library(readr)
+library(dplyr)
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(kableExtra)
+
+xl_data = read_excel('../../inputs/data/GSS/GSS.xlsx')
+
+clean_data <- xl_data |> 
+  select(year, id_, age, degree, sex, race) |> 
+  filter(degree != ".d:  Do not Know/Cannot Choose") |> 
+  filter(degree != ".n:  No answer") |> 
+  filter(year > 1997) |>
+  filter(year < 2019) 
+
+
+? filter
+  
+count_people_degree <- clean_data |> 
+  select(year, degree) |>
+  group_by(year) |> 
+  count(degree)
+
+count_people_degree |>
+  ggplot(aes(x = year, y = n)) +
+  scale_x_continuous(breaks = seq(1998, 2018, 2)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 65, vjust = 0.6)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~degree) +
+  labs(
+    x = "year",
+    y = "n"
+  )
+
+
+degree_by_sex <- clean_data |> 
+  select(degree, sex) |>
+  group_by(degree, sex) |> 
+  count(degree)
+
+degree_by_sex |>
+  # select(degree, n , sex) |> 
+  ggplot(aes(x = degree, y = n, fill = sex)) +
+  scale_y_continuous(breaks = seq(500, 8500, 500)) +
+  theme_minimal() +
+  geom_col(
+    position = "dodge"
+  ) +
+  labs( #labelling axis
+    x = "Degree",
+    y = "Number of Degree Holders"
+  ) +
+  scale_fill_brewer(palette = "BuPu") #setting colour purple colour palette
+
+# degree_by_sex |>
+#   ggplot(data=degree_by_sex, aes(x=degree, y=n, fill=sex)) +
+#   geom_bar(stat="identity", color="black", position=position_dodge())+
+#   theme_minimal()
+
+
+
+degree_by_race_filtered <- clean_data |> 
+  select(year, degree, race) |>
+  filter(degree != "Less than high school") |>
+  filter(degree != "High school") |>
+  group_by(degree, race) |>
+  count(year)
+
+degree_by_race_table <- clean_data |>
+  select(year, degree, race) |>
+  group_by(year, degree, race) |>
+  count(year)
+
+firsttabl <- tabyl(year, degree, race) |> #filtering only needed data
+  adorn_totals(c("row", "col")) |> #calculating totals of all selected values
+  select("") |> #selecting only years with completed data 
+  kable(booktabs = T, caption = "Number of Apprehensions by MHA Apprehension Type from 2014 to 2021",
+    col.names = c("MHA Apprehension Types", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021"), 
+    align = "l"
+  )
+
+
+?summarize
+
+# degree_by_race_associate |
+# 
+# degree_by_race_bachelors |>   
+# 
+# 
+# degree_by_race_graduate |> 
+
+  
+degree_by_race |>
+  ggplot(aes(x = year, y = n, color = race)) +
+  geom_point() +
+  geom_line() +
+  theme_minimal() +
+  facet_wrap(
+    ~degree,
+    ncol = 1
+  ) +
+  scale_x_continuous(breaks = seq(1998, 2018, 2)) +
+  scale_y_continuous(breaks = seq(0, 650, 100)) +
+  labs(
+    x = "Year",
+    y = "number of degree holders",
+    color = "race"
+  ) +
+  scale_color_brewer(palette = "Set1")
+
+? ggplot
+? facet_wrap
+
+
+
+
+```
+
+```{r}
+
+#| fig-width: 20
+
+```
+
 some more changes
 
 # Introduction
