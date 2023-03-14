@@ -2,8 +2,9 @@
 title: "My title"
 subtitle: "My subtitle if needed"
 author: 
-  - First author
-  - Another author
+  - Laura Lee-Chu
+  - Will Davidson
+  - Syed Hassan
 thanks: "Code and data are available at: LINK."
 date: "`r Sys.time()`"
 date-format: "D MMMM YYYY"
@@ -15,39 +16,59 @@ bibliography: references.bib
 
 ```{r}
 #| include: false
+#| echo: false
 #| warning: false
 #| message: false
 
 library(tidyverse)
-library(palmerpenguins)
-```
-
-```{r}
-library(foreign)
 library(here)
 library(readr)
-library(dplyr)
-library(tidyverse)
 library(readxl)
-library(janitor)
 library(kableExtra)
 
-xl_data = read_excel('../../inputs/data/GSS/GSS.xlsx')
+```
 
-clean_data <- xl_data |> 
-  select(year, id_, age, degree, sex, race) |> 
+
+
+```{r}
+#| echo: false
+#| message: false
+
+import_import_clean_data <- read_csv(
+  here::here("outputs/data/clean_data.csv"),
+  show_col_types = FALSE
+)
+
+check_unique_01 <- import_import_clean_data |>
+  select(degree) |> 
+  unique()
+
+filter_degree <- import_import_clean_data |>
   filter(degree != ".d:  Do not Know/Cannot Choose") |> 
-  filter(degree != ".n:  No answer") |> 
-  filter(year > 1997) |>
-  filter(year < 2019) 
+  filter(degree != ".n:  No answer")
 
+# make sure the data is filtered from the arguments above
+check_unique_02 <- filter_degree |>
+  select(degree) |> 
+  unique()
 
-? filter
   
-count_people_degree <- clean_data |> 
+count_people_degree <- filter_degree |> 
   select(year, degree) |>
   group_by(year) |> 
   count(degree)
+
+
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: education_total
+#| fig-cap: Number of people with high school education or more.
+#| fig-align: center
+#| fig-width: 5.5
 
 count_people_degree |>
   ggplot(aes(x = year, y = n)) +
@@ -56,70 +77,43 @@ count_people_degree |>
   theme(axis.text.x = element_text(angle = 65, vjust = 0.6)) +
   geom_point() +
   geom_line() +
-  facet_wrap(~degree) +
+  facet_wrap(
+    ~degree,
+    ncol = 2) +
   labs(
     x = "year",
     y = "n"
   )
+```
 
 
-degree_by_sex <- clean_data |> 
-  select(degree, sex) |>
-  group_by(degree, sex) |> 
-  count(degree)
+```{r}
+#| echo: false
+#| warning: false
 
-degree_by_sex |>
-  # select(degree, n , sex) |> 
-  ggplot(aes(x = degree, y = n, fill = sex)) +
-  scale_y_continuous(breaks = seq(500, 8500, 500)) +
-  theme_minimal() +
-  geom_col(
-    position = "dodge"
-  ) +
-  labs( #labelling axis
-    x = "Degree",
-    y = "Number of Degree Holders"
-  ) +
-  scale_fill_brewer(palette = "BuPu") #setting colour purple colour palette
-
-# degree_by_sex |>
-#   ggplot(data=degree_by_sex, aes(x=degree, y=n, fill=sex)) +
-#   geom_bar(stat="identity", color="black", position=position_dodge())+
-#   theme_minimal()
-
-
-
-degree_by_race_filtered <- clean_data |> 
+degree_by_race <- filter_degree |> 
   select(year, degree, race) |>
   filter(degree != "Less than high school") |>
   filter(degree != "High school") |>
   group_by(degree, race) |>
   count(year)
 
-degree_by_race_table <- clean_data |>
-  select(year, degree, race) |>
-  group_by(year, degree, race) |>
-  count(year)
+# degree_by_race_table <- import_clean_data |>
+#   select(year, degree, race) |>
+#   group_by(year, degree, race) |>
+#   count(year)
 
-firsttabl <- tabyl(year, degree, race) |> #filtering only needed data
-  adorn_totals(c("row", "col")) |> #calculating totals of all selected values
-  select("") |> #selecting only years with completed data 
-  kable(booktabs = T, caption = "Number of Apprehensions by MHA Apprehension Type from 2014 to 2021",
-    col.names = c("MHA Apprehension Types", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021"), 
-    align = "l"
-  )
+```
 
 
-?summarize
+```{r}
+#| echo: false
+#| warning: false
+#| label: degree_by_race
+#| fig-cap: Number of people with post-secondary education.
+#| fig-align: center
+#| fig-width: 5.5
 
-# degree_by_race_associate |
-# 
-# degree_by_race_bachelors |>   
-# 
-# 
-# degree_by_race_graduate |> 
-
-  
 degree_by_race |>
   ggplot(aes(x = year, y = n, color = race)) +
   geom_point() +
@@ -138,107 +132,23 @@ degree_by_race |>
   ) +
   scale_color_brewer(palette = "Set1")
 
-? ggplot
-? facet_wrap
-
-
 
 
 ```
 
 ```{r}
-
-#| fig-width: 20
-
-```
-
-some more changes
-
-# Introduction
-
-You can and should cross-reference sections and sub-sections. For instance, @sec-data and @sec-first-point. 
-
-
-
-# Data {#sec-data}
-
-Our data is of penguins (@fig-bills).
-
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
 #| echo: false
+#| warning: false
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+
+# firsttabl <- tabyl(year, degree, race) |> #filtering only needed data
+#   adorn_totals(c("row", "col")) |> #calculating totals of all selected values
+#   select("") |> #selecting only years with completed data 
+#   kable(booktabs = T, caption = "Number of Apprehensions by MHA Apprehension Type from 2014 to 2021",
+#     col.names = c("MHA Apprehension Types", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021"), 
+#     align = "l"
+#   )
 ```
-
-Talk more about it.
-
-Also bills and their average (@fig-billssssss). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work.)
-
-```{r}
-#| label: fig-billssssss
-#| fig-cap: More bills of penguins
-#| echo: false
-#| fig-width: 8
-#| fig-height: 4
-
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-Talk way more about it. 
-
-
-
-# Model
-
-$$
-Pr(\theta | y) = \frac{Pr(y | \theta) Pr(\theta)}{Pr(y)}
-$$ {#eq-bayes}
-
-@eq-bayes seems useful, eh?
-
-Here's a dumb example of how to use some references: In paper we run our analysis in `R` [@citeR]. We also use the `tidyverse` which was written by @thereferencecanbewhatever If we were interested in baseball data then @citeLahman could be useful. 
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
-
-
-# Results
-
-# Discussion
-
-## First discussion point {#sec-first-point}
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix {-}
-
-
-# Additional details
 
 
 \newpage

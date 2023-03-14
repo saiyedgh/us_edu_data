@@ -1,12 +1,9 @@
 
 infile dictionary {
 
-_column(1) 	 numeric 		 ETHNIC 		 %20f 		 "country of family origin" 
-_column(6) 	 numeric 		 AGE 		 %20f 		 "age of respondent" 
-_column(11) 	 numeric 		 DEGREE 		 %20f 		 "r's highest degree" 
-_column(15) 	 numeric 		 SEX 		 %20f 		 "respondents sex" 
-_column(20) 	 numeric 		 RACE 		 %20f 		 "race of respondent" 
-_column(25) 	 numeric 		 REGION 		 %20f 		 "region of interview" 
-_column(27) 	 numeric 		 YEAR 		 %20f 		 "GSS year for this respondent" 
-_column(32) 	 numeric 		 ID_ 		 %20f 		 "Respondent id number" 
+_column(1) 	 numeric 		 DEGREE 		 %20f 		 "r's highest degree" 
+_column(5) 	 numeric 		 SEX 		 %20f 		 "respondents sex" 
+_column(10) 	 numeric 		 RACE 		 %20f 		 "race of respondent" 
+_column(15) 	 numeric 		 YEAR 		 %20f 		 "GSS year for this respondent" 
+_column(20) 	 numeric 		 ID_ 		 %20f 		 "Respondent id number" 
 }

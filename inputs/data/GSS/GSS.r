@@ -29,7 +29,8 @@ library(foreign)
   }
 
 
-GSS_metadata <- read.dct("GSS.dct")
-GSS_ascii <- read.dat("GSS.dat", GSS_metadata)
+GSS_metadata <- read.dct("inputs/data/GSS/GSS.dct")
+GSS_ascii <- read.dat("inputs/data/GSS/GSS.dat", GSS_metadata)
 attr(GSS_ascii, "col.label") <- GSS_metadata[["ColLabel"]]
 GSS <- GSS_ascii
+
