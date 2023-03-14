@@ -65,21 +65,6 @@ head(count_people_degree)
 ```
 
 ```{r}
-#| echo: false
-#| message: false
-#| include: false
-
-# using kableExtra to draw a table
-t(count_people_degree) |> 
-  kbl() |> 
-  kable_styling()
-
-# calls in the table to be drawn on screen
-
-```
-
-
-```{r}
 #| label: education_total
 #| fig-cap: Education level of the population.
 #| fig-align: center
