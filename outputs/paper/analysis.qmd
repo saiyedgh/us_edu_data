@@ -67,7 +67,7 @@ count_people_degree <- filter_degree |>
 #| echo: false
 #| warning: false
 #| label: education_total
-#| fig-cap: Education of the population with classifications.
+#| fig-cap: Education of the population with classification.
 #| fig-align: center
 #| fig-width: 5.5
 
@@ -163,7 +163,7 @@ by_sex |>
    ggplot(aes(x = degree, y = n, fill = sex)) +
    scale_y_continuous(breaks = seq(500, 8500, 500)) +
    theme_minimal() +
-   geom_smooth() + 
+   scale_x_discrete(labels = function(x) str_wrap(x, width = 15)) +
    geom_col(
      position = "dodge"
    ) +
