@@ -34,7 +34,7 @@ library(knitr)
 
 ```{r}
 #| echo: false
-#| message: false
+#| warning: false
 
 import_import_clean_data <- read_csv(
   here::here("outputs/data/clean_data.csv"),
@@ -53,23 +53,23 @@ filter_degree <- import_import_clean_data |>
 check_unique_02 <- filter_degree |>
   select(degree) |> 
   unique()
-head(check_unique_02)
   
 count_people_degree <- filter_degree |> 
   select(year, degree) |>
   group_by(year) |> 
   count(degree)
 
-head(count_people_degree)
 
 ```
 
+
 ```{r}
+#| echo: false
+#| warning: false
 #| label: education_total
 #| fig-cap: Education level of the population.
 #| fig-align: center
 #| fig-width: 5.5
-#| warning: false
 
 count_people_degree |>
   mutate(across(degree, factor, levels=c("Graduate",
@@ -114,11 +114,12 @@ degree_by_race <- filter_degree |>
 
 
 ```{r}
+#| echo: false
+#| warning: false
 #| label: degree_by_race
 #| fig-cap: Number of people with post-secondary education.
 #| fig-align: center
 #| fig-width: 5.5
-#| warning: false
 
 degree_by_race |>
   ggplot(aes(x = year, y = n, color = race)) +
@@ -127,7 +128,8 @@ degree_by_race |>
   theme_minimal() +
   facet_wrap(
     ~degree,
-    ncol = 1
+    ncol = 1,
+    scale="free_y"
   ) +
   scale_x_continuous(breaks = seq(1998, 2018, 2)) +
   scale_y_continuous(breaks = seq(0, 650, 100)) +
