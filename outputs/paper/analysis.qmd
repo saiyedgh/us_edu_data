@@ -97,56 +97,6 @@ count_people_degree |>
 ```{r}
 #| echo: false
 #| warning: false
-
-by_race <- filter_degree |> 
-  select(year, degree, race) |>
-  filter(degree != "Less than high school") |>
-  filter(degree != "High school") |>
-  group_by(degree, race) |>
-  count(year)
-
-# degree_by_race_table <- import_clean_data |>
-#   select(year, degree, race) |>
-#   group_by(year, degree, race) |>
-#   count(year)
-
-```
-
-
-```{r}
-#| echo: false
-#| warning: false
-#| label: degree_by_race
-#| fig-cap: Number of people with post-secondary education.
-#| fig-align: center
-#| fig-width: 5.5
-
-by_race |>
-  ggplot(aes(x = year, y = n, color = race)) +
-  geom_point() +
-  geom_line() +
-  theme_minimal() +
-  facet_wrap(
-    ~degree,
-    ncol = 1,
-    scale="free_y"
-  ) +
-  scale_x_continuous(breaks = seq(1998, 2018, 2)) +
-  scale_y_continuous(breaks = seq(0, 650, 100)) +
-  labs(
-    x = "Year",
-    y = "number of degree holders",
-    color = "race"
-  ) +
-  scale_color_brewer(palette = "Set1")
-
-
-
-```
-
-```{r}
-#| echo: false
-#| warning: false
 #| label: education_by_sex
 #| fig-cap: Education levels by sex.
 #| fig-align: center
@@ -172,6 +122,58 @@ by_sex |>
      y = "Number of Degree Holders"
    ) +
    scale_fill_brewer(palette = "BuPu")
+
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+
+by_race <- filter_degree |> 
+  select(year, degree, race) |>
+  filter(degree != "Less than high school") |>
+  filter(degree != "High school") |>
+  group_by(race, degree) |>
+  count(year)
+
+
+# degree_by_race_table <- import_clean_data |>
+#   select(year, degree, race) |>
+#   group_by(year, degree, race) |>
+#   count(year)
+
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: degree_by_race
+#| fig-cap: Number of people with post-secondary education.
+#| fig-align: center
+#| fig-width: 6
+
+by_race |>
+  ggplot(aes(x = year, y = n, color = degree)) +
+  geom_point() +
+  geom_line() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 65, vjust = 0.6)) +
+  facet_wrap(
+    ~race,
+    ncol = 1,
+    scale="free_y"
+  ) +
+  scale_x_continuous(breaks = seq(1998, 2018, 2)) +
+  labs(
+    x = "Year",
+    y = "Number of degree holders by race",
+    color = "race"
+  ) +
+  scale_colour_discrete(labels = function(x) str_wrap(x, width = 5))
+
+
 
 ```
 
