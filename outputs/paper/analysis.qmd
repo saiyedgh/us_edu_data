@@ -67,7 +67,7 @@ count_people_degree <- filter_degree |>
 #| echo: false
 #| warning: false
 #| label: education_total
-#| fig-cap: Education level of the population.
+#| fig-cap: Education of the population with classifications.
 #| fig-align: center
 #| fig-width: 5.5
 
@@ -98,7 +98,7 @@ count_people_degree |>
 #| echo: false
 #| warning: false
 
-degree_by_race <- filter_degree |> 
+by_race <- filter_degree |> 
   select(year, degree, race) |>
   filter(degree != "Less than high school") |>
   filter(degree != "High school") |>
@@ -121,7 +121,7 @@ degree_by_race <- filter_degree |>
 #| fig-align: center
 #| fig-width: 5.5
 
-degree_by_race |>
+by_race |>
   ggplot(aes(x = year, y = n, color = race)) +
   geom_point() +
   geom_line() +
@@ -143,6 +143,38 @@ degree_by_race |>
 
 
 ```
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: education_by_sex
+#| fig-cap: Education levels by sex.
+#| fig-align: center
+#| fig-width: 6
+
+
+by_sex <- filter_degree |> 
+   select(degree, sex) |>
+   group_by(degree, sex) |> 
+   count(degree)
+
+by_sex |>
+   select(degree, n , sex) |>
+   ggplot(aes(x = degree, y = n, fill = sex)) +
+   scale_y_continuous(breaks = seq(500, 8500, 500)) +
+   theme_minimal() +
+   geom_smooth() + 
+   geom_col(
+     position = "dodge"
+   ) +
+   labs( #labelling axis
+     x = "Degree",
+     y = "Number of Degree Holders"
+   ) +
+   scale_fill_brewer(palette = "BuPu")
+
+```
+
 
 ```{r}
 #| echo: false
