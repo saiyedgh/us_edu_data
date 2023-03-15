@@ -27,6 +27,7 @@ library(readxl)
 library(kableExtra)
 library(scales)
 library(knitr)
+library(janitor)
 
 ```
 
@@ -130,10 +131,214 @@ by_sex |>
 #| echo: false
 #| warning: false
 
+by_year_total <- filter_degree |>
+  group_by(year) |> 
+  count()
+
+transpose_totals <- data.frame(t(by_year_total))
+
+rownames(transpose_totals) <- c("", "Totals")
+
+transpose_totals_w_titles <- transpose_totals |> 
+  row_to_names(row_number = 1)
+
+transpose_totals_w_titles |> 
+  kbl(caption = "Total number of respondents, education data") |>
+  kable_paper("hover", full_width = F)
+
+
+```
+
+
+
+```{r}
+#| echo: false
+#| warning: false
+
+by_year_sex <- filter_degree |> 
+  select(degree, year, sex) |>
+  group_by(degree, year, sex) |> 
+  count(degree)
+
+filter_year_1998_male <- by_year_sex |>
+  filter(year == 1998 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_1998_female <- by_year_sex |>
+  filter(year == 1998 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2000_male <- by_year_sex |>
+  filter(year == 2000 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2000_female <- by_year_sex |>
+  filter(year == 2000 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2002_male <- by_year_sex |>
+  filter(year == 2002 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2002_female <- by_year_sex |>
+  filter(year == 2002 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2004_male <- by_year_sex |>
+  filter(year == 2004 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2004_female <- by_year_sex |>
+  filter(year == 2004 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2006_male <- by_year_sex |>
+  filter(year == 2006 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2006_female <- by_year_sex |>
+  filter(year == 2006 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2008_male <- by_year_sex |>
+  filter(year == 2008 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2008_female <- by_year_sex |>
+  filter(year == 2008 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2010_male <- by_year_sex |>
+  filter(year == 2010 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2010_female <- by_year_sex |>
+  filter(year == 2010 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2012_male <- by_year_sex |>
+  filter(year == 2012 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2012_female <- by_year_sex |>
+  filter(year == 2012 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2014_male <- by_year_sex |>
+  filter(year == 2014 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2014_female <- by_year_sex |>
+  filter(year == 2014 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2016_male <- by_year_sex |>
+  filter(year == 2016 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2016_female <- by_year_sex |>
+  filter(year == 2016 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2018_male <- by_year_sex |>
+  filter(year == 2018 && sex == "MALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+filter_year_2018_female <- by_year_sex |>
+  filter(year == 2018 && sex == "FEMALE") |> 
+  ungroup() |> 
+  select(degree, n)
+
+merge_list <- list(
+  filter_year_1998_male,
+  filter_year_1998_female,
+  filter_year_2000_male,
+  filter_year_2000_female,
+  filter_year_2002_male,
+  filter_year_2002_female,
+  filter_year_2004_male,
+  filter_year_2004_female,
+  filter_year_2006_male,
+  filter_year_2006_female,
+  filter_year_2008_male,
+  filter_year_2008_female,
+  filter_year_2010_male,
+  filter_year_2010_female,
+  filter_year_2012_male,
+  filter_year_2012_female,
+  filter_year_2014_male,
+  filter_year_2014_female,
+  filter_year_2016_male,
+  filter_year_2016_female,
+  filter_year_2018_male,
+  filter_year_2018_female)
+
+my_merge <- function(df1, df2) {
+  merge(df1, df2, by = "degree")
+}
+
+education_by_sex_data <- Reduce(my_merge, merge_list)
+
+
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+
+# knitr::kable(education_by_sex_data,
+#              col.names = c("Education", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F"))
+
+kbl(education_by_sex_data) |> 
+  kable_paper() |> 
+  add_header_above(c(" ",
+                     "1998" = 2,
+                     "2000" = 2,
+                     "2002" = 2,
+                     "2004" = 2,
+                     "2006" = 2,
+                     "2008" = 2,
+                     "2010" = 2,
+                     "2012" = 2,
+                     "2014" = 2,
+                     "2016" = 2,
+                     "2018" = 2 ))
+
+
+```
+
+
+
+```{r}
+#| echo: false
+#| warning: false
+
 by_race <- filter_degree |> 
   select(year, degree, race) |>
-  filter(degree != "Less than high school") |>
-  filter(degree != "High school") |>
+  # filter(degree != "Less than high school") |>
+  # filter(degree != "High school") |>
   group_by(race, degree) |>
   count(year)
 
@@ -176,6 +381,16 @@ by_race |>
 
 
 ```
+
+```{r}
+
+# test_table_01 <- filter_degree |>
+#   mutate(order_by(year, cumsum(value))
+# 
+# ? order_by
+
+```
+
 
 
 ```{r}
