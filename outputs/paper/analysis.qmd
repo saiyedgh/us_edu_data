@@ -37,16 +37,16 @@ library(janitor)
 #| echo: false
 #| warning: false
 
-import_import_clean_data <- read_csv(
+import_clean_data <- read_csv(
   here::here("outputs/data/clean_data.csv"),
   show_col_types = FALSE
 )
 
-check_unique_01 <- import_import_clean_data |>
+check_unique_01 <- import_clean_data |>
   select(degree) |> 
   unique()
 
-filter_degree <- import_import_clean_data |>
+filter_degree <- import_clean_data |>
   filter(degree != ".d:  Do not Know/Cannot Choose") |> 
   filter(degree != ".n:  No answer")
 
@@ -126,6 +126,18 @@ by_sex |>
 
 ```
 
+```{r}
+#| echo: false
+#| warning: false
+
+# race_sex_table <- import_clean_data |>
+#   select(year, race, sex) |> 
+#   table(import_clean_data$sex, import_clean_data$race,
+#         import_clean_data$year) |>
+#   ftable(race_sex_table)
+```
+
+
 
 ```{r}
 #| echo: false
@@ -142,10 +154,14 @@ rownames(transpose_totals) <- c("", "Totals")
 transpose_totals_w_titles <- transpose_totals |> 
   row_to_names(row_number = 1)
 
-transpose_totals_w_titles |> 
-  kbl(caption = "Total number of respondents, education data") |>
-  kable_paper("hover", full_width = F)
+total_respondents_table <- transpose_totals_w_titles |> 
+  kable(caption = "Total number of respondents, education data") |>
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    font_size=10) |> 
+  row_spec(0, bold=T)
 
+total_respondents_table
 
 ```
 
@@ -304,6 +320,7 @@ education_by_sex_data <- Reduce(my_merge, merge_list)
 ```
 
 
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -311,8 +328,10 @@ education_by_sex_data <- Reduce(my_merge, merge_list)
 # knitr::kable(education_by_sex_data,
 #              col.names = c("Education", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F"))
 
-kbl(education_by_sex_data) |> 
-  kable_paper() |> 
+kbl(education_by_sex_data,
+    caption = "Education details of respondents by sex from 1998 - 2018",
+    col.names = c("Education", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F"),
+    align = c(rep("l", 1), rep("c"))) |> 
   add_header_above(c(" ",
                      "1998" = 2,
                      "2000" = 2,
@@ -324,7 +343,13 @@ kbl(education_by_sex_data) |>
                      "2012" = 2,
                      "2014" = 2,
                      "2016" = 2,
-                     "2018" = 2 ))
+                     "2018" = 2 )) |>
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    font_size=6, full_width = F) |>
+  column_spec(1, width = "2cm") |>
+  column_spec(2:23, width = "0.2cm") |> 
+  row_spec(0, bold=T)
 
 
 ```
@@ -341,12 +366,6 @@ by_race <- filter_degree |>
   # filter(degree != "High school") |>
   group_by(race, degree) |>
   count(year)
-
-
-# degree_by_race_table <- import_clean_data |>
-#   select(year, degree, race) |>
-#   group_by(year, degree, race) |>
-#   count(year)
 
 ```
 
@@ -382,30 +401,7 @@ by_race |>
 
 ```
 
-```{r}
 
-# test_table_01 <- filter_degree |>
-#   mutate(order_by(year, cumsum(value))
-# 
-# ? order_by
-
-```
-
-
-
-```{r}
-#| echo: false
-#| warning: false
-
-?arrange
-# firsttabl <- tabyl(year, degree, race) |> #filtering only needed data
-#   adorn_totals(c("row", "col")) |> #calculating totals of all selected values
-#   select("") |> #selecting only years with completed data 
-#   kable(booktabs = T, caption = "Number of Apprehensions by MHA Apprehension Type from 2014 to 2021",
-#     col.names = c("MHA Apprehension Types", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021"), 
-#     align = "l"
-#   )
-```
 
 
 \newpage
