@@ -49,5 +49,5 @@ The core data analysis of this project occurs in the `outputs/paper/analysis.qmd
 
 ## Acknowledgments
 
-Created by , Larua Lee-Chu, Will Davidson, and [Syed Hassan](https://sai-yed.com).It Contains information from [General Social Survey (GSS)](https://gssdataexplorer.norc.org/), a project of the independent research organization [NORC](https://norc.org/) at the [University of Chicago](https://www.uchicago.edu/), with principal funding from the [National Science Foundation](https://www.nsf.gov/). Created using [R](https://www.r-project.org/), an open-source statistical programming language.
+Created by , Larua Lee-Chu, Will Davidson, and [Syed Hassan](https://sai-yed.com). It Contains information from [General Social Survey (GSS)](https://gssdataexplorer.norc.org/), a project of the independent research organization [NORC](https://norc.org/) at the [University of Chicago](https://www.uchicago.edu/), with principal funding from the [National Science Foundation](https://www.nsf.gov/). Created using [R](https://www.r-project.org/), an open-source statistical programming language.
 
