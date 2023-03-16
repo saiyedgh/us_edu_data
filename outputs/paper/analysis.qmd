@@ -1,24 +1,49 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Factors Affecting US Education between 1998 and 2018"
 author: 
   - Laura Lee-Chu
   - Will Davidson
   - Syed Hassan
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data are available at: https://github.com/saiyedgh/us_edu_data.git"
 date: "`r Sys.time()`"
 date-format: "D MMMM YYYY"
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "Formal education impacts the status of individuals and as an important social determinant of health, is critical to an equitable society. However, trends in education in the United States from 1998 to 2018, show obvious inequities for different people. This paper highlights the educational differences between women and men and between white populations and racialized populations and shows that white individuals have more success in the educational system, and women must acquire higher levels of education to achieve equality in the workplace. These findings will help us better understand the social, political and historical factors that shape educational opportunities and outcomes in the United States."
 format: pdf
 number-sections: true
 bibliography: references.bib
 ---
 
 ```{r}
+#| messages: false
+#| echo: false
+#| warning: false
+#| output: false
+#### Preamble ####
+# Title: 
+# Author: Laura Lee-Chu, Will Davidson, Syed Hassan
+# Email: syed.ext@gmail.com
+# Date: 16 March 2023
+# GitHub: https://github.com/saiyedgh/us_edu_data.git
+```
+
+
+```{r}
 #| include: false
 #| echo: false
 #| warning: false
 #| message: false
+
+##### Install and run the required libraries and packages #####
+
+# uncomment the installation files for your
+# install.packages("tidyverse")
+# install.packages("here")
+# install.packages("readr")
+# install.packages("readxl")
+# install.packages("kableExtra")
+# install.packages("scales")
+# install.packages("knitr")
+# install.packages("janitor")
 
 library(tidyverse)
 library(here)
@@ -28,14 +53,102 @@ library(kableExtra)
 library(scales)
 library(knitr)
 library(janitor)
-
 ```
 
+# Introduction
+
+Education is an important equalizer. It is strongly associated with health because it plays an important role in shaping opportunities for meaningful employment, income and where a person lives. Investing in early-year and high school education determines whether a student pursues higher education so early interventions are critical to future success. Policies and funding by state or federal governments that support equal access to resources and quality education in early education have had some success in leveling the playing field. But it isn’t enough. By comparing differences between women, men and different races over a decade in the United States, is it evident that barriers to education continue to exist for racialized individuals and that women are held to higher standards of education in order to achieve equality in the workplace.  
+
+This paper looked at the General Social Survey to collect and analyze data as it related to education levels achieved across the United States from 1998-2008. The data looked specifically at trends in educational achievements in two different ways; by sex and by race. We conducted detailed research and interpretation of the results and designed four data representations. First, we examined all educational attainments in the U.S. from 1998 to 2008. Second, we looked at the educational attainments based on sex from 1998 to 2008. Finally, we will examine the number of degree holders by race. 
+
+Our findings will show that females and the white population attain higher education levels than males and other ethnicities.\
+
+# Data
+
+-   From 1998 to 2000
+
+    -   This study employed standard field procedures for national surveys, including interviewer hiring and training by area supervisors in interviewing locations when necessary. The sampling procedures were reviewed by having interviewers take a training quiz after they had studied the sampling instructions specific to this study
+
+    -   After these steps were completed, interviewers received materials needed for data collection (assignments, specifications, blank interview schedules). Each interviewer completed one practice interview which was evaluated at NORC.
+
+    -   Actual interviewing then commenced; completed interviews were immediately returned to NORC where they were edited for completeness and accuracy.
+
+    -   Twenty percent of the interviews were validated. Feedback on specific problems was given to individual interviewers and on general problems to all interviewers.
+
+    -   Once field work was completed, the edited questionnaires were coded and keypunched, and the resulting data were cleaned
+
+    -   Strengths:
+
+        -   Standard field procedures: The use of standard field procedures ensures that the study follows a consistent methodology, which enhances the reliability and validity of the findings.
+
+        -   Sampling procedures: The use of appropriate sampling procedures helps ensure that the sample is representative of the population being studied, which enhances the generalizability of the findings.
+
+        -   Training of interviewers: The training of interviewers helps ensure that they are skilled in conducting interviews and following the methodology of the study, which enhances the quality of the data collected.
+
+        -   Quality control: The use of quality control measures, such as editing for completeness and accuracy and validation of a subset of interviews, helps ensure the accuracy and reliability of the data collected.
+
+    -   Weaknesses:
+
+        -   Potential for bias: Despite the use of appropriate sampling procedures, there is still potential for bias in the sample, particularly if certain groups are underrepresented or difficult to reach.
+
+        -   Potential for interviewer effects: Even with training, interviewers may still have an impact on the data collected, for example, if they inadvertently influence respondents or fail to follow the methodology consistently.
+
+        -   Limited information on methodology: While the information provided suggests that appropriate procedures were followed, it is unclear whether other potential sources of bias, such as nonresponse bias or social desirability bias, were adequately addressed.
+
+-   From 2002 onwards
+
+    -   In 2002 the GSS switched to computer assisted Personal Interviewing (CAPI). There are no printed questionnaires, but the showcards are still printed. Manual edits and keypunching are eliminated. Training now includes learning how to operate CAPI. Data validation and cleaning remains similar to pre-CAPI procedures described above. 
+
+    -   Strengths:
+
+        -   Increased efficiency: CAPI eliminates the need for manual edits and keypunching, which can save time and resources in data processing.
+
+        -   Improved accuracy: CAPI can reduce errors in data collection by automatically skipping irrelevant questions and ensuring that skip patterns are followed correctly.
+
+        -   Improved data quality: The use of CAPI can help ensure data consistency and completeness, which can enhance the quality of the data collected.
+
+        -   Increased flexibility: CAPI allows for more complex survey designs, such as randomization of question order, which can increase the richness of the data collected.
+
+    -   Weaknesses:
+
+        -   Potential for technical difficulties: The use of CAPI requires specialized equipment and software, which can be subject to technical difficulties or malfunctions that could impact data collection.
+
+        -   Training requirements: Interviewers must now be trained in how to operate CAPI software, which may require additional time and resources.
+
+        -   Limited access: CAPI may not be accessible to all respondents, particularly those without access to the necessary technology or those with disabilities that make it difficult to use electronic devices.
+
+        -   Potential for response bias: The switch to CAPI may result in different response patterns than with traditional paper-based surveys, which could introduce response bias if certain groups are more likely to use CAPI than others.
+
+The Primary Sampling Units (PSUs) employed are Standard Metropolitan Statistical Areas (SMSAs) or non-metropolitan counties selected in NORC's Master Sample. These SMSAs and counties were stratified by region, age, and race before selection.
+
+The units of selection of the second stage were block groups (BGs) and enumeration districts (EDs). These EDs and BGs were stratified according to race and income before selection.3 The third stage of selection was that of blocks. The blocks were selected with probabilities proportional to size. In places without block statistics, measures of size for the blocks were obtained by field counting. The average cluster size is five respondents per cluster. This provides a suitable balance of precision and economy
+
+The sample is a multistage area probability sample to the block or segment level. At the block level, however, quota sampling is used with quotas based on sex, age, and employment status. The cost of the quota samples is substantially less than the cost of a full probability sample of the same size, but there is, of course, the chance of sample biases mainly due to not-at-homes which are not controlled by the quotas. However, in order to reduce this bias, the interviewers are given instructions to canvas and interview only after 3:00 p.m. on weekdays or during the weekend or holidays. This type of sample design is most appropriate when the past experience and judgment of a project director suggest that sample biases are likely to be small relative to the precision of the measuring instrument and the decisions that are to be made.\
+
+# Measurements
+
+The data sourced from GSS was collected from households throughout the United States. Data from the U.S. Census Population was gathered nationwide from all civilians that participated.\
+
+# Discussion of questionnaire
+
+The survey was limited because there was only one question asked which was the Respondent’s degree.\
+
+# Estimand
+
+“What is the effect of public schools on a student’s education path?”. This framework will allow us to develop objectives for evaluating the effects of public schools on students.\
+
+# Limitations
+
+The survey wasn't conducted yearly. There was a small sample size. Race data is limited to black, white and others, ignoring other racialized minorities. Regional data doesn't include states which have different education policies . It's not clear if it's public or private education. There are more latinos than blacks but the survey groups them in others with smaller racial groups. Until 2006 the GSS only sampled the English speaking population. As defined for the GSS in 1983-1987, 98% of the adult household population is English speaking. The number of non-English speakers excluded. Spanish speakers typically make up 60-65% of the language exclusions. They changed the ballot used for the interview since all years used Ballots A, B,C . In 2006, they used Ballots A, B, C, D, and the  additional ballot caused a spike in respondents.\
 
 
+# Visualizing Data
+\
 ```{r}
 #| echo: false
 #| warning: false
+
+##### Data file import and initial data manipulation for graphs and tables #####
 
 import_clean_data <- read_csv(
   here::here("outputs/data/clean_data.csv"),
@@ -67,10 +180,43 @@ count_people_degree <- filter_degree |>
 ```{r}
 #| echo: false
 #| warning: false
-#| label: education_total
-#| fig-cap: Education of the population with classification.
+#| label: tbl-1
+#| tbl-cap: Total number of respondents from 1998 - 2018
+
+##### Table 01 - Total number of respondents #####
+
+by_year_total <- filter_degree |>
+  group_by(year) |> 
+  count()
+
+transpose_totals <- data.frame(t(by_year_total))
+
+rownames(transpose_totals) <- c("", "Total")
+
+transpose_totals_w_titles <- transpose_totals |> 
+  row_to_names(row_number = 1)
+
+total_respondents_table <- transpose_totals_w_titles |> 
+  kable() |> 
+  kable_styling(
+    latex_options = c("striped", "hold_position"),
+    font_size=10) |> 
+  row_spec(0, bold=T)
+
+total_respondents_table
+
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-1
+#| fig-cap: Total number of respondents by degree from 1998 - 2018.
 #| fig-align: center
 #| fig-width: 5.5
+
+##### Creating Figure 01 Graph/Plot  #####
 
 count_people_degree |>
   mutate(across(degree, factor, levels=c("Graduate",
@@ -89,88 +235,31 @@ count_people_degree |>
     ncol = 2,
     scale="free_y") +
   labs(
-    x = "year",
-    y = "n"
+    x = "Year",
+    y = "Number of Respondents"
   )
 ```
 
-
-```{r}
-#| echo: false
-#| warning: false
-#| label: education_by_sex
-#| fig-cap: Education levels by sex.
-#| fig-align: center
-#| fig-width: 6
+\
+@fig-1 shows data on the level of education of the United States population across all states between the years of 1998 to 2018. The graphs show the numbers of individuals who attained a graduate, bachelor's, associate/junior college, high school, or less than high school degree.
 
 
-by_sex <- filter_degree |> 
-   select(degree, sex) |>
-   group_by(degree, sex) |> 
-   count(degree)
+@tbl-1 shows a sharp increase across all education levels from 2004-2006 followed by a decline the following two years. This is due to the difference in survey respondents in each period. There are other things happening during this period of time that are more interesting.
 
-by_sex |>
-   select(degree, n , sex) |>
-   ggplot(aes(x = degree, y = n, fill = sex)) +
-   scale_y_continuous(breaks = seq(500, 8500, 500)) +
-   theme_minimal() +
-   scale_x_discrete(labels = function(x) str_wrap(x, width = 15)) +
-   geom_col(
-     position = "dodge"
-   ) +
-   labs( #labelling axis
-     x = "Degree",
-     y = "Number of Degree Holders"
-   ) +
-   scale_fill_brewer(palette = "BuPu")
+By 1998, almost every state defined or implemented academic standards for high school math and reading. Principles and teachers were evaluated to ensure they were suitable to teach at the new high standard that was measured through criterion-referenced tests. Students were promoted to higher grades or retained in lower grades based on their performance against standardized material. In the early days of this change, from 1998 to 2004, it appears there was some success in retaining more high school students based on the decrease of the number of children who had less than high school, and the consistent rate of high school graduates. At the same time, there is an upswing in the number of post secondary graduates with an increase across all post-secondary degrees from 2012 to 2016 with the most significant at the bachelor and graduate levels. This increase could be attributed in part to the increased pipeline of students graduating from high schools across the United States.
 
-```
+There were a number of other interventions targeted at reducing early school leaving and increasing post secondary pursuits. One of these interventions was The Adult Education and Family Literacy Act of 1998 - a primary federal law supporting basic education for out-of-school adults mainly at the secondary level. The act contributed to the decline we see in less than high school students from 2000 to 2004.
 
-```{r}
-#| echo: false
-#| warning: false
+Another was The Carl D. Perkins Career and Technical Education Act of 2006 which contributed to an increase in community college enrollment. The \$1.1 billion of funding in 2012 provided individuals with career and technical education programs like business administration. Federal Acts like the Education Opportunity Act of 2008 - an initiative designed for colleges and high school students that provided financial assistance for post-secondary education - was in response to the financial crisis of 2008 when families and individuals were limited in their ability to afford a post-secondary education. The impact was not immediate due to the time it took to roll out the plan and for the resources to be allocated equally.
 
-# race_sex_table <- import_clean_data |>
-#   select(year, race, sex) |> 
-#   table(import_clean_data$sex, import_clean_data$race,
-#         import_clean_data$year) |>
-#   ftable(race_sex_table)
-```
-
+The data in @fig-1 shows the changing trends in education levels across a large period of time with federal acts playing a crucial role in increasing access to education.\
 
 
 ```{r}
 #| echo: false
 #| warning: false
 
-by_year_total <- filter_degree |>
-  group_by(year) |> 
-  count()
-
-transpose_totals <- data.frame(t(by_year_total))
-
-rownames(transpose_totals) <- c("", "Totals")
-
-transpose_totals_w_titles <- transpose_totals |> 
-  row_to_names(row_number = 1)
-
-total_respondents_table <- transpose_totals_w_titles |> 
-  kable(caption = "Total number of respondents, education data") |>
-  kable_styling(
-    latex_options = c("striped", "hold_position"),
-    font_size=10) |> 
-  row_spec(0, bold=T)
-
-total_respondents_table
-
-```
-
-
-
-```{r}
-#| echo: false
-#| warning: false
-
+##### Manipulating data columns for table 02 merge #####
 by_year_sex <- filter_degree |> 
   select(degree, year, sex) |>
   group_by(degree, year, sex) |> 
@@ -310,6 +399,7 @@ merge_list <- list(
   filter_year_2018_male,
   filter_year_2018_female)
 
+# creating a function to be able to merge multiple tables through passing their variable names as arguments
 my_merge <- function(df1, df2) {
   merge(df1, df2, by = "degree")
 }
@@ -320,17 +410,17 @@ education_by_sex_data <- Reduce(my_merge, merge_list)
 ```
 
 
-
 ```{r}
 #| echo: false
 #| warning: false
+#| label: tbl-2
+#| tbl-cap: "Total number of respondents by sex and degree from 1998 - 2018"
 
-# knitr::kable(education_by_sex_data,
-#              col.names = c("Education", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F"))
+##### Table 02 - Total number of respondents by sex and degree #####
+
 
 kbl(education_by_sex_data,
-    caption = "Education details of respondents by sex from 1998 - 2018",
-    col.names = c("Education", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F"),
+    col.names = c("Degree", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F", "M", "F"),
     align = c(rep("l", 1), rep("c"))) |> 
   add_header_above(c(" ",
                      "1998" = 2,
@@ -354,6 +444,58 @@ kbl(education_by_sex_data,
 
 ```
 
+\
+@tbl-2 presents data on the educational details of female and male respondents from 1998 - 2018 across the United States. Associate/junior colleges consistently had more females than male graduates and after 2008, the number of females almost doubled. The negative stigma and lower prestige around associate/junior colleges has led to reduced numbers of all genders when compared to other post secondary education levels.  High school students without the required grades or money for university, go into trades rather than junior college. Men are overrepresented in the trades compared to women.
+
+The bachelor’s degree follows an increasing trend of women pursuing higher education. In 1998 only six more females than males attained a degree whereas in 2018, 55 more females attained a degree than males. Significantly more men pursue a bachelor’s and do not continue on to a graduate degree. In 1998, there were 151 more bachelor’s than male master’s students. A decade later the number dropped to 85, but rose slightly to 94 in 2018.  Similarly, more women pursue a bachelor’s than a graduate degree. In 1998, there were more female graduate students than males. From 2000 to 2006 there were more male graduate students and from 2008 onwards there were more female graduate students. After 2008, there was a steady enrolment of more than 100 male graduate students. It’s important to understand that graduate school is expensive, time consuming, and can lead to academic burnout.
+
+Females consistently graduated high school more than males from 1998 to 2018. This was the most significant gap between females and males across all categories of education level. 
+
+Education is compulsory for all children but the age at which one can discontinue schooling varies by state and is from 14 to 18 years old. The gap between males and females decreased over time in less than high school. From 2014 to 2018 there was a decline for females and from 2014 to 2016 an increase for males showing that females are more likely to continue their formal education beyond high school when compared to males.
+
+Across all degrees there was a decrease in males from 2016 to 2018, which could have been impacted by the steep rise in political polarization, right wing rhetoric, and anti-intellectualism following Trump’s election. 
+
+Despite some small variations, overall, there were increasingly more females than males pursuing education. The labour markets reward women with relatively higher financial returns for college enrollment. According to the Federal Reserve Bank of St Louis, the difference in female hourly wage relative to male hourly wage decreases as women pursue higher education. Women with only a high school diploma made about 24% less per hour compared with men in that same education group. Relative to men, women earn an additional 5.3% return by getting an associate or a bachelor’s degree; that is, women with an associate degree made 28% more relative to women with only a high school degree, whereas women with a bachelor’s degree made 68% more. This is why there is a higher number of women with a bachelors or graduate degree compared to associate/junior college, almost or around double across all years. More education is an important way to close the gender pay gap 
+
+Men have more access to careers that don’t require a college degree, like construction work. 
+There are still high paying jobs available to men without college credentials, while there are relatively few compared to women. Over the years more women have participated in the labor force, and there has been a shift in gender roles, with women no longer expected to marry at a younger age.\
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-2
+#| fig-cap: Education levels by sex.
+#| fig-align: center
+#| fig-width: 6
+
+##### Creating Figure 02 Graph/Plot #####
+
+by_sex <- filter_degree |> 
+   select(degree, sex) |>
+   group_by(degree, sex) |> 
+   count(degree)
+
+by_sex |>
+   select(degree, n , sex) |>
+   ggplot(aes(x = degree, y = n, fill = sex)) +
+   scale_y_continuous(breaks = seq(500, 8500, 500)) +
+   theme_minimal() +
+   scale_x_discrete(labels = function(x) str_wrap(x, width = 15)) +
+   geom_col(
+     position = "dodge"
+   ) +
+   labs( # labelling axis
+     x = "Degree",
+     y = "Number of Respondents"
+   ) +
+   scale_fill_brewer(name = "Sex", palette = "BuPu")
+
+```
+
+\
+@fig-2 shows the number of degree holders based on their gender.
+
+Across all levels of education, there were more females than males. In our census data 50.5% of the population is female and the numbers correspond with the demographic proportion. This makes sense since everything follows the same pattern because you need a highschool diploma to pursue higher education. The most significant gap is with high school degrees who are the most populous with 6,500 males and 8,500 females. This correlates with the census data as 88.9% of the population has a high school degree or higher. There are less than 200 between males and females at the graduate level which is the smallest gap. The second smallest at the bachelor level since 33.7% of the population has a bachelor’s degree or higher. The smallest number is the associate/junior college for both sexes.\
 
 
 ```{r}
@@ -373,8 +515,8 @@ by_race <- filter_degree |>
 ```{r}
 #| echo: false
 #| warning: false
-#| label: degree_by_race
-#| fig-cap: Number of people with post-secondary education.
+#| label: fig-3
+#| fig-cap: Total number of respondents by race and degree from 1998 - 2018.
 #| fig-align: center
 #| fig-width: 6
 
@@ -392,21 +534,188 @@ by_race |>
   scale_x_continuous(breaks = seq(1998, 2018, 2)) +
   labs(
     x = "Year",
-    y = "Number of degree holders by race",
-    color = "race"
+    y = "Number of Respondents",
+    color = "Degree"
   ) +
   scale_colour_discrete(labels = function(x) str_wrap(x, width = 5))
 
-
-
 ```
 
+\
+@fig-3 is sourced from multiple reports relating to the education system and the demographic makeup of the United States. The data is presented in a chart to display the findings. 
 
+Demographic data from the 2021 United States Census Bureau reports the population is made up of 75.8% White individuals, 13.6% Black Individuals, and grouped as ‘other’ are 18.9% Hispanic individuals, 6.1% Asian individuals, and 1.3% American Indian and Alaska Native individuals. 
+
+Education data is sourced from the National Centre for Education Statistics, who report on the education attainment levels across different racial groups.
+
+When looking at these two data sets, it shows a similar trend with all demographic categories achieving high school as their highest level of education reached. Under the ‘other’ category, there is a notably small gap between the high number of people who graduate and those who do not graduate from high school and both the Black and Other groups show a more significant rise in graduates from 2012 to 2018 than the white group. Overall, there are significantly more white individuals at higher levels of education when compared to all other racial groups. White individuals have a higher proportion of individuals completing their bachelor’s degree and lowest proportion who did not graduate high school. By comparison, Black individuals are graduating high school at around a 1 to 4 ratio when compared to their white counterparts and are half as likely to graduate high school than other racialized individuals. Black individuals have the lowest proportion of graduate degrees. It is obvious from these graphs that white individuals are more successfully completing higher levels of education when compared to their non-white peers. The U.S. No Child Left Behind required standardized testing of students at all levels of education. These standardized tests has been proven to hurt minorities and lower income students as disadvantaged students don’t have access to all the same prep resources. Ethnic minority groups (African American, Latino, and Native Americans) fall far behind in performance compared to their White and Asian American peers. There are also cultural and linguistic background differences that aren’t represented in standardized tests. For example, the Scholastic Aptitude Test (SAT) used an analogy with the word “regatta” that few African American students knew while many Caucasian counterparts were familiar with the word. Such groups may be denied access to educational and career opportunities if these tests produce inaccurate scores of knowledge and ability.
+
+
+The National Centre for Education statistics shows that education is directly tied to household income and that household income is directly tied to race. The median household income in the United States is \$48,298, yet the median household income for white individuals is over 40% higher at \$77,999.
+
+Public schools in the United States are funded through property taxes. This results in higher income neighborhoods ending up with more access to resources and better-funded schools. At the same, due to previous redlining policies, racialized neighborhoods are devalued, driving down the value of homes, leading to less taxes and underfunded educational institutions. In other words, it is not a coincidence that white individuals, living in richer neighborhoods, have a better education experience resulting in higher rates of graduates when compared to racialized groups.\
+
+# Ethics & Bias
+
+The survey must give Informed consent by explaining the purpose of the study, how the data will be used, and state that the data is anonymous. Confidentiality is important to protect the privacy of respondents to ensure the information collected is kept private. Volunteers shouldn’t be forced to participate in the survey or given incentives. It’s important to respect cultural differences by being self-aware and educating yourself before conducting the survey.
+
+There could be a non-response bias where survey participants are unwilling or unable to respond to a survey question. The reasons would vary from person to person. Social desirability bias: Respondents will report higher levels of education to have themselves viewed favorably by others. This is known as social desirability bias. They must ensure that all of the population have an equal chance of being selected to participate in the survey. It’s important to make sure the wording of the question doesn’t influence a certain response.\
+
+# Conclusion
+
+Looking at the data alone, one might dangerously conclude that women and white individuals go farther in formal education because they are smarter than their peers, when in fact it is a result of the historical racism and sexism that continue to exist in our society today. Women need to acquire higher education to be paid similar to a man who is less educated and racialized individuals who grow up in families with little to no formal education and therefore less income, are subject to under-resourced early education and financial barriers to higher education when compared to white individuals living in wealthier communities. These cycles of oppression, wealth and poverty have continued for centuries and are difficult to break.
+
+There are institutional systems in place both in education and the workplace, that must be dismantled for the cycle to end. It’s only through greater awareness, laws, public policy and program interventions that increased diversity in higher education and equal pay for equal work will result in greater health and equality for all citizens.\
 
 
 \newpage
 
+# Appendix
+
+## Supplementary Survey
+
+Our supplemental survey is available here : <https://docs.google.com/forms/d/1FrWGKemyska_hn_VHqFEBlvB9yYB_fZ2mha_1RQQSw8/edit>
+
+### Preamble
+
+We are conducting a survey to further investigate factors that influence the attainment of a degree. Our focus is on exploring the impact of demographic and socioeconomic factors when pursuing education. We're interested in hearing about individual experiences and how it affected your willingness to learn and stay motivated.
+
+Your participation in the survey is entirely voluntary. You can choose to skip questions or withdraw from the survey at any time. Rest assured that all responses will be kept confidential and used solely for research purposes. Please contact Will at "willdavidson\@gmail.com" for any questions or concerns.
+
+### Questions
+
+1.  What is your gender identity?
+
+    -   Woman
+
+    -   Man
+
+    -   Transgender
+
+    -   Non-Binary
+
+    -   Prefer not to answer
+
+2.  What is your race/ethnicity?
+
+    -   American
+
+    -   Indian or Alaskan Native
+
+    -   Asian/Pacific Islander
+
+    -   Black or African American
+
+    -   Hispanic White/Caucasian
+
+    -   Multiple ethnicity/other (please specify)
+
+    -   Prefer not to answer
+
+3.  What is your highest level of completed education?
+
+    -   Less than high school
+
+    -   High School
+
+    -   Associate/Junior College
+
+    -   Bachelor's
+
+    -   Graduate/JD
+
+    -   PhD
+
+    -   Prefer not to answer
+
+4.  Are you planning on pursuing further education?
+
+    -   Yes
+
+    -   No
+
+    -   Prefer not to answer
+
+5.  If you answered yes, what level?
+
+    -   High School
+
+    -   Associate/Junior College
+
+    -   Bachelor's
+
+    -   Graduate/JD
+
+    -   PhD
+
+    -   Prefer not to answer
+
+6.  If you are affiliated with a religion, has it created any barriers or challenges?
+
+    -   Yes
+
+    -   No
+
+    -   Other
+
+7.  Have you experienced any challenges or barriers related to your gender identity when obtaining your degree?
+
+    -   Yes
+
+    -   No
+
+8.  If you answered yes, what challenges or barriers have you faced
+
+    -   Discrimination
+
+    -   Lack of representation
+
+    -   Access to resources
+
+    -   Other
+
+    -   Prefer not to answer
+
+9.  Are tuition costs a significant factor when deciding whether to pursue your degree?
+
+    -   Yes
+
+    -   No
+
+    -   Prefer not to answer
+
+10. Did you receive any financial assistance during your degree attainment
+
+    -   Yes
+
+    -   No
+
+    -   Prefer not to answer
+
+11. Do you have any student debt?
+
+    -   Yes
+
+    -   No
+
+    -   Prefer not to answer
+
+12. Have you experienced any challenges related to accessing technology or reliable internet for the purposes of completing your degree?
+
+    -   Yes
+
+    -   No
+
+    -   Prefer not to answer
+
+Thank you for taking the time to participate in our survey. Your feedback is incredibly valuable and will help us better understand the factors that influence the pursuit of further education. We appreciate your willingness to share your thoughts and experiences with us, and we will use this information to improve our data.
+
+\newpage
+
+## Code
+
+The report was created using *`R`* [@R] and *`R Studio`* [@r_studio] with *`Quarto`* [@quarto] -- a new version of *`R Markdown`* [@r_markdown]. The main library utilized for this purpose is *`Tidyverse`* [@tidyverse]. Its used sub-packages include *`dplyr`* [@dplyr] to enable query-like syntax, and *`ggplot`* [@ggplot] to create graphs and charts. Other packages and tools include *`here`* [@here], *`janitor`* [@janitor], *`knitr`* [@knitr], *`kableExtra`* [@kableExtra], and *`scales`* [@scales]. Their respective function is to find *CSV* files, clean data, generate reports, create tables, and enable customized legends and break points.
+
+\newpage
 
 # References
-
-
