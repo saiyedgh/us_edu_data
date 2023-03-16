@@ -1,22 +1,27 @@
 #### Preamble ####
-# Purpose: Cleans.... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Data: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Simulates education data to sketch the intended dataset
+# Author: Laura Lee-Chu, Will Davidson, and Syed Hassan
+# Data: 16 March 2023
+# Contact: syed.ext@gmail.com
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: The saved raw file 'inputs/data/raw_data.csv', library: "tidyverse", "janitor", "reader", "here"
 
 
 #### Workspace setup ####
+
+install.packages("tidyverse")
+install.packages("janitor")
+install.packages("readr")
+install.packages("here")
+
 library(tidyverse)
 library(janitor)
 library(readr)
 library(here)
-# [...UPDATE THIS...]
+
 
 #### Clean data ####
-# [...UPDATE THIS...]
+
 raw_data <- read_csv(
   here::here("inputs/data/raw_data.csv"),
   show_col_types = FALSE
