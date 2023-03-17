@@ -1,6 +1,6 @@
 #### Preamble ####
 # Purpose: Simulates education data to sketch the intended dataset
-# Author: Laura Lee-Chu, Will Davidson, and Syed Hassan
+# Authors: Will Davidson, Syed Hassan
 # Data: 16 March 2023
 # Contact: syed.ext@gmail.com
 # License: MIT
