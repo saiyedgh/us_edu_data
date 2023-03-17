@@ -23,7 +23,7 @@ This project requires was created using the [R programming language](https://www
 The data used in project is from [General Social Survey](https://gssdataexplorer.norc.org), and more specificallt is four variables from the main dataset:
 
 - [Year](https://gssdataexplorer.norc.org/variables/1/vshow)
-- [Education](https://gssdataexplorer.norc.org/variables/59/vshow)
+- [Degree](https://gssdataexplorer.norc.org/variables/59/vshow)
 - [Sex](https://gssdataexplorer.norc.org/variables/81/vshow)
 - [Race](https://gssdataexplorer.norc.org/variables/82/vshow)
 
