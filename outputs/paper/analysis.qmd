@@ -78,10 +78,9 @@ R’s highest degree survey records the individual's highest level of education 
 
 GSS data is collected every two years dating back to 1972. The dataset can give the user the ability to study the long term effects and better understand the changes over time. They’ve done  a great job of staying consistent with their methods to provide the user with accuracy and reliability over the years [@GSS-codebook].
 
-
 # Measurements
 
-The data sourced from GSS was collected from households throughout the United States. Data from the U.S. Census Population was gathered nationwide from all civilians that participated.\
+The data sourced from GSS was collected from households throughout the United States. Data from the U.S. Census Population was gathered nationwide from all civilians that participated.
 
 # Discussion of questionnaire
 
