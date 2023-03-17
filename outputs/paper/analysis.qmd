@@ -512,7 +512,7 @@ Overall, more women are participating in the labor force than ever before, and w
  
 ## Education is directly correlated with income level
 
-The National Centre for Education statistics shows that education is directly tied to household income and that household income is directly tied to race. The median household income in the United States is \$48,298, yet the median household income for white individuals is over 40% higher at \$77,999.
+The National Centre for Education Statistics shows that education is directly tied to household income and that household income is directly tied to race [@NCES-race]. The median household income in the United States is \$48,298, yet the median household income for white individuals is over 40% higher at \$77,999.
 
 Public schools in the United States are funded through property taxes. This results in higher income neighborhoods ending up with more access to resources and better-funded schools. At the same, due to previous redlining policies, racialized neighborhoods are devalued, driving down the value of homes, leading to less taxes and underfunded educational institutions. In other words, it is not a coincidence that white individuals, living in richer neighborhoods, have a better education experience resulting in higher rates of graduates when compared to racialized groups. \
 
