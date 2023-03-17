@@ -1,7 +1,6 @@
 ---
 title: "Factors Affecting US Education between 1998 and 2018"
 author: 
-  - Laura Lee-Chu
   - Will Davidson
   - Syed Hassan
 thanks: "Code and data are available at: https://github.com/saiyedgh/us_edu_data.git"
@@ -9,6 +8,7 @@ date: "`r Sys.time()`"
 date-format: "D MMMM YYYY"
 abstract: "Formal education impacts the status of individuals and as an important social determinant of health, is critical to an equitable society. However, trends in education in the United States from 1998 to 2018, show obvious inequities for different people. This paper highlights the educational differences between women and men and between white populations and racialized populations and shows that white individuals have more success in the educational system, and women must acquire higher levels of education to achieve equality in the workplace. These findings will help us better understand the social, political and historical factors that shape educational opportunities and outcomes in the United States."
 format: pdf
+toc: TRUE
 number-sections: true
 bibliography: references.bib
 ---
@@ -54,76 +54,30 @@ library(scales)
 library(knitr)
 library(janitor)
 ```
+\
 
 # Introduction
 
 Education is an important equalizer. It is strongly associated with health because it plays an important role in shaping opportunities for meaningful employment, income and where a person lives. Investing in early-year and high school education determines whether a student pursues higher education so early interventions are critical to future success. Policies and funding by state or federal governments that support equal access to resources and quality education in early education have had some success in leveling the playing field. But it isn’t enough. By comparing differences between women, men and different races over a decade in the United States, is it evident that barriers to education continue to exist for racialized individuals and that women are held to higher standards of education in order to achieve equality in the workplace.  
 
-This paper looked at the General Social Survey to collect and analyze data as it related to education levels achieved across the United States from 1998-2008. The data looked specifically at trends in educational achievements in two different ways; by sex and by race. We conducted detailed research and interpretation of the results and designed four data representations. First, we examined all educational attainments in the U.S. from 1998 to 2008. Second, we looked at the educational attainments based on sex from 1998 to 2008. Finally, we will examine the number of degree holders by race. 
+This paper looked at the General Social Survey [@GSS] to collect and analyze data as it related to education levels achieved across the United States from 1998-2008. The data looked specifically at trends in educational achievements in two different ways; by sex and by race. We conducted detailed research and interpretation of the results and designed four data representations. First, we examined all educational attainments in the U.S. from 1998 to 2008. Second, we looked at the educational attainments based on sex from 1998 to 2008. Finally, we will examine the number of degree holders by race. 
 
-Our findings will show that females and the white population attain higher education levels than males and other ethnicities.\
+Our findings will show that females and the white population attain higher education levels than males and other ethnicities.
+
+“What is the effect of public schools on a student’s education path?”. This framework will allow us to develop objectives for evaluating the effects of public schools on students.\
 
 # Data
 
--   From 1998 to 2000
+## Data Collection
 
-    -   This study employed standard field procedures for national surveys, including interviewer hiring and training by area supervisors in interviewing locations when necessary. The sampling procedures were reviewed by having interviewers take a training quiz after they had studied the sampling instructions specific to this study
+The raw data used in this study was downloaded from GSS within the package r’s highest degree [@degree-var].  The GSS sample is drawn using an area probability design that chooses random households across the U.S.A  to participate in their survey. The backgrounds of the households are from a mix of urban and rural communities. The participation is voluntary.
 
-    -   After these steps were completed, interviewers received materials needed for data collection (assignments, specifications, blank interview schedules). Each interviewer completed one practice interview which was evaluated at NORC.
+The General Social Survey is conducted by the National Opinion Research Center and it does a great job of representing the entire U.S population. GSS collects a wide range of data varying from social, economic, and political issues with a focus on family life, education, race, and religion.
 
-    -   Actual interviewing then commenced; completed interviews were immediately returned to NORC where they were edited for completeness and accuracy.
+R’s highest degree survey records the individual's highest level of education attained. The variable is important because education develops critical thinking and will help individuals secure better jobs. The study was great because this variable can be used to understand how education can be related to social and economic outcomes and how education varies based on the demographic group.
 
-    -   Twenty percent of the interviews were validated. Feedback on specific problems was given to individual interviewers and on general problems to all interviewers.
+GSS data is collected every two years dating back to 1972. The dataset can give the user the ability to study the long term effects and better understand the changes over time. They’ve done  a great job of staying consistent with their methods to provide the user with accuracy and reliability over the years [@GSS-codebook].
 
-    -   Once field work was completed, the edited questionnaires were coded and keypunched, and the resulting data were cleaned
-
-    -   Strengths:
-
-        -   Standard field procedures: The use of standard field procedures ensures that the study follows a consistent methodology, which enhances the reliability and validity of the findings.
-
-        -   Sampling procedures: The use of appropriate sampling procedures helps ensure that the sample is representative of the population being studied, which enhances the generalizability of the findings.
-
-        -   Training of interviewers: The training of interviewers helps ensure that they are skilled in conducting interviews and following the methodology of the study, which enhances the quality of the data collected.
-
-        -   Quality control: The use of quality control measures, such as editing for completeness and accuracy and validation of a subset of interviews, helps ensure the accuracy and reliability of the data collected.
-
-    -   Weaknesses:
-
-        -   Potential for bias: Despite the use of appropriate sampling procedures, there is still potential for bias in the sample, particularly if certain groups are underrepresented or difficult to reach.
-
-        -   Potential for interviewer effects: Even with training, interviewers may still have an impact on the data collected, for example, if they inadvertently influence respondents or fail to follow the methodology consistently.
-
-        -   Limited information on methodology: While the information provided suggests that appropriate procedures were followed, it is unclear whether other potential sources of bias, such as nonresponse bias or social desirability bias, were adequately addressed.
-
--   From 2002 onwards
-
-    -   In 2002 the GSS switched to computer assisted Personal Interviewing (CAPI). There are no printed questionnaires, but the showcards are still printed. Manual edits and keypunching are eliminated. Training now includes learning how to operate CAPI. Data validation and cleaning remains similar to pre-CAPI procedures described above. 
-
-    -   Strengths:
-
-        -   Increased efficiency: CAPI eliminates the need for manual edits and keypunching, which can save time and resources in data processing.
-
-        -   Improved accuracy: CAPI can reduce errors in data collection by automatically skipping irrelevant questions and ensuring that skip patterns are followed correctly.
-
-        -   Improved data quality: The use of CAPI can help ensure data consistency and completeness, which can enhance the quality of the data collected.
-
-        -   Increased flexibility: CAPI allows for more complex survey designs, such as randomization of question order, which can increase the richness of the data collected.
-
-    -   Weaknesses:
-
-        -   Potential for technical difficulties: The use of CAPI requires specialized equipment and software, which can be subject to technical difficulties or malfunctions that could impact data collection.
-
-        -   Training requirements: Interviewers must now be trained in how to operate CAPI software, which may require additional time and resources.
-
-        -   Limited access: CAPI may not be accessible to all respondents, particularly those without access to the necessary technology or those with disabilities that make it difficult to use electronic devices.
-
-        -   Potential for response bias: The switch to CAPI may result in different response patterns than with traditional paper-based surveys, which could introduce response bias if certain groups are more likely to use CAPI than others.
-
-The Primary Sampling Units (PSUs) employed are Standard Metropolitan Statistical Areas (SMSAs) or non-metropolitan counties selected in NORC's Master Sample. These SMSAs and counties were stratified by region, age, and race before selection.
-
-The units of selection of the second stage were block groups (BGs) and enumeration districts (EDs). These EDs and BGs were stratified according to race and income before selection.3 The third stage of selection was that of blocks. The blocks were selected with probabilities proportional to size. In places without block statistics, measures of size for the blocks were obtained by field counting. The average cluster size is five respondents per cluster. This provides a suitable balance of precision and economy
-
-The sample is a multistage area probability sample to the block or segment level. At the block level, however, quota sampling is used with quotas based on sex, age, and employment status. The cost of the quota samples is substantially less than the cost of a full probability sample of the same size, but there is, of course, the chance of sample biases mainly due to not-at-homes which are not controlled by the quotas. However, in order to reduce this bias, the interviewers are given instructions to canvas and interview only after 3:00 p.m. on weekdays or during the weekend or holidays. This type of sample design is most appropriate when the past experience and judgment of a project director suggest that sample biases are likely to be small relative to the precision of the measuring instrument and the decisions that are to be made.\
 
 # Measurements
 
@@ -133,17 +87,9 @@ The data sourced from GSS was collected from households throughout the United St
 
 The survey was limited because there was only one question asked which was the Respondent’s degree.\
 
-# Estimand
-
-“What is the effect of public schools on a student’s education path?”. This framework will allow us to develop objectives for evaluating the effects of public schools on students.\
-
-# Limitations
-
-The survey wasn't conducted yearly. There was a small sample size. Race data is limited to black, white and others, ignoring other racialized minorities. Regional data doesn't include states which have different education policies . It's not clear if it's public or private education. There are more latinos than blacks but the survey groups them in others with smaller racial groups. Until 2006 the GSS only sampled the English speaking population. As defined for the GSS in 1983-1987, 98% of the adult household population is English speaking. The number of non-English speakers excluded. Spanish speakers typically make up 60-65% of the language exclusions. They changed the ballot used for the interview since all years used Ballots A, B,C . In 2006, they used Ballots A, B, C, D, and the  additional ballot caused a spike in respondents.\
-
 
 # Visualizing Data
-\
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -241,16 +187,11 @@ count_people_degree |>
 ```
 
 \
-@fig-1 shows data on the level of education of the United States population across all states between the years of 1998 to 2018. The graphs show the numbers of individuals who attained a graduate, bachelor's, associate/junior college, high school, or less than high school degree.
-
+@fig-1 shows data on the level of education of the United States population across all states between the years of 1998 to 2018. The graphs show the numbers of individuals who attained a graduate, bachelor’s, associate/junior college, high school, or less than high school degree.
 
 @tbl-1 shows a sharp increase across all education levels from 2004-2006 followed by a decline the following two years. This is due to the difference in survey respondents in each period. There are other things happening during this period of time that are more interesting.
 
 By 1998, almost every state defined or implemented academic standards for high school math and reading. Principles and teachers were evaluated to ensure they were suitable to teach at the new high standard that was measured through criterion-referenced tests. Students were promoted to higher grades or retained in lower grades based on their performance against standardized material. In the early days of this change, from 1998 to 2004, it appears there was some success in retaining more high school students based on the decrease of the number of children who had less than high school, and the consistent rate of high school graduates. At the same time, there is an upswing in the number of post secondary graduates with an increase across all post-secondary degrees from 2012 to 2016 with the most significant at the bachelor and graduate levels. This increase could be attributed in part to the increased pipeline of students graduating from high schools across the United States.
-
-There were a number of other interventions targeted at reducing early school leaving and increasing post secondary pursuits. One of these interventions was The Adult Education and Family Literacy Act of 1998 - a primary federal law supporting basic education for out-of-school adults mainly at the secondary level. The act contributed to the decline we see in less than high school students from 2000 to 2004.
-
-Another was The Carl D. Perkins Career and Technical Education Act of 2006 which contributed to an increase in community college enrollment. The \$1.1 billion of funding in 2012 provided individuals with career and technical education programs like business administration. Federal Acts like the Education Opportunity Act of 2008 - an initiative designed for colleges and high school students that provided financial assistance for post-secondary education - was in response to the financial crisis of 2008 when families and individuals were limited in their ability to afford a post-secondary education. The impact was not immediate due to the time it took to roll out the plan and for the resources to be allocated equally.
 
 The data in @fig-1 shows the changing trends in education levels across a large period of time with federal acts playing a crucial role in increasing access to education.\
 
@@ -451,14 +392,9 @@ The bachelor’s degree follows an increasing trend of women pursuing higher edu
 
 Females consistently graduated high school more than males from 1998 to 2018. This was the most significant gap between females and males across all categories of education level. 
 
-Education is compulsory for all children but the age at which one can discontinue schooling varies by state and is from 14 to 18 years old. The gap between males and females decreased over time in less than high school. From 2014 to 2018 there was a decline for females and from 2014 to 2016 an increase for males showing that females are more likely to continue their formal education beyond high school when compared to males.
+Education is compulsory for all children but the age at which one can discontinue schooling varies by state and is from 14 to 18 years old [@congress-edu]. The gap between males and females decreased over time in less than high school. From 2014 to 2018 there was a decline for females and from 2014 to 2016 an increase for males showing that females are more likely to continue their formal education beyond high school when compared to males.
 
-Across all degrees there was a decrease in males from 2016 to 2018, which could have been impacted by the steep rise in political polarization, right wing rhetoric, and anti-intellectualism following Trump’s election. 
-
-Despite some small variations, overall, there were increasingly more females than males pursuing education. The labour markets reward women with relatively higher financial returns for college enrollment. According to the Federal Reserve Bank of St Louis, the difference in female hourly wage relative to male hourly wage decreases as women pursue higher education. Women with only a high school diploma made about 24% less per hour compared with men in that same education group. Relative to men, women earn an additional 5.3% return by getting an associate or a bachelor’s degree; that is, women with an associate degree made 28% more relative to women with only a high school degree, whereas women with a bachelor’s degree made 68% more. This is why there is a higher number of women with a bachelors or graduate degree compared to associate/junior college, almost or around double across all years. More education is an important way to close the gender pay gap 
-
-Men have more access to careers that don’t require a college degree, like construction work. 
-There are still high paying jobs available to men without college credentials, while there are relatively few compared to women. Over the years more women have participated in the labor force, and there has been a shift in gender roles, with women no longer expected to marry at a younger age.\
+Across all degrees there was a decrease in males from 2016 to 2018, which could have been impacted by the steep rise in political polarization, right wing rhetoric, and anti-intellectualism following Trump’s election.\
 
 ```{r}
 #| echo: false
@@ -495,7 +431,7 @@ by_sex |>
 \
 @fig-2 shows the number of degree holders based on their gender.
 
-Across all levels of education, there were more females than males. In our census data 50.5% of the population is female and the numbers correspond with the demographic proportion. This makes sense since everything follows the same pattern because you need a highschool diploma to pursue higher education. The most significant gap is with high school degrees who are the most populous with 6,500 males and 8,500 females. This correlates with the census data as 88.9% of the population has a high school degree or higher. There are less than 200 between males and females at the graduate level which is the smallest gap. The second smallest at the bachelor level since 33.7% of the population has a bachelor’s degree or higher. The smallest number is the associate/junior college for both sexes.\
+Across all levels of education, there were more females than males. In our census data 50.5% of the population is female and the numbers correspond with the demographic proportion. This makes sense since everything follows the same pattern because you need a highschool diploma to pursue higher education. The most significant gap is with high school degrees who are the most populous with 6,500 males and 8,500 females. This correlates with the census data as 88.9% of the population has a high school degree or higher. There are less than 200 males and females at the graduate level which is the smallest gap. The second smallest at the bachelor level since 33.7% of the population has a bachelor’s degree or higher. The smallest number is the associate/junior college for both sexes [@ECAR]. \
 
 
 ```{r}
@@ -544,16 +480,46 @@ by_race |>
 \
 @fig-3 is sourced from multiple reports relating to the education system and the demographic makeup of the United States. The data is presented in a chart to display the findings. 
 
-Demographic data from the 2021 United States Census Bureau reports the population is made up of 75.8% White individuals, 13.6% Black Individuals, and grouped as ‘other’ are 18.9% Hispanic individuals, 6.1% Asian individuals, and 1.3% American Indian and Alaska Native individuals. 
+Demographic data from the 2021 United States Census Bureau reports the population is made up of 75.8% White individuals, 13.6% Black individuals, and grouped as ‘other’ are 18.9% Hispanic individuals, 6.1% Asian individuals, and 1.3% American Indian and Alaska Native individuals. 
 
-Education data is sourced from the National Centre for Education Statistics, who report on the education attainment levels across different racial groups.
+Education data is sourced from the National Centre for Education Statistics, who report on the education attainment levels across different racial groups [@NCES-race].
 
-When looking at these two data sets, it shows a similar trend with all demographic categories achieving high school as their highest level of education reached. Under the ‘other’ category, there is a notably small gap between the high number of people who graduate and those who do not graduate from high school and both the Black and Other groups show a more significant rise in graduates from 2012 to 2018 than the white group. Overall, there are significantly more white individuals at higher levels of education when compared to all other racial groups. White individuals have a higher proportion of individuals completing their bachelor’s degree and lowest proportion who did not graduate high school. By comparison, Black individuals are graduating high school at around a 1 to 4 ratio when compared to their white counterparts and are half as likely to graduate high school than other racialized individuals. Black individuals have the lowest proportion of graduate degrees. It is obvious from these graphs that white individuals are more successfully completing higher levels of education when compared to their non-white peers. The U.S. No Child Left Behind required standardized testing of students at all levels of education. These standardized tests has been proven to hurt minorities and lower income students as disadvantaged students don’t have access to all the same prep resources. Ethnic minority groups (African American, Latino, and Native Americans) fall far behind in performance compared to their White and Asian American peers. There are also cultural and linguistic background differences that aren’t represented in standardized tests. For example, the Scholastic Aptitude Test (SAT) used an analogy with the word “regatta” that few African American students knew while many Caucasian counterparts were familiar with the word. Such groups may be denied access to educational and career opportunities if these tests produce inaccurate scores of knowledge and ability.
+When looking at these two data sets, it shows a similar trend with all demographic categories achieving high school as their highest level of education reached. Under the ‘other’ category, there is a notably small gap between the high number of people who graduate and those who do not graduate from high school and both the Black and Other groups show a more significant rise in graduates from 2012 to 2018 than the white group. Overall, there are significantly more white individuals at higher levels of education when compared to all other racial groups. White individuals have a higher proportion of individuals completing their bachelor’s degree and lowest proportion who did not graduate high school. By comparison, Black individuals are graduating high school at around a 1 to 4 ratio when compared to their white counterparts and are half as likely to graduate high school than other racialized individuals. Black individuals have the lowest proportion of graduate degrees. It is obvious from these graphs that white individuals are more successfully completing higher levels of education when compared to their non-white peers.\
 
+# Results
+
+According to our findings, education levels have been steady over the past twenty years, with ups and downs due to economic and social issues. Our observation was because of education acts in 2004 and 2006, there was a spike in the number of graduates due to more resources and opportunities. The analysis examined education levels based on sex. The study showed that women were more likely to achieve higher educational attainment than men. This could be attributed to women having access to more resources and a shift in gender roles.
+
+Further evaluation of the same theory in the third figure again showed women had higher levels of education, with most of the population finishing with a high school degree. Our study looked at two angles to observe the relationship between education, race, and gender, with important conclusions coming from all graphs and figures. The study on the number of people’s educational attainment related to ethnicity showed that Black and Hispanic individuals were less likely than white individuals to achieve higher levels of education. There need to be future studies looking into specific areas, schools, and programs of studies to understand the real impact of race and gender on education. It’s important to keep investigating these issues and to bring equality to education.\
+
+
+# Discussion
+
+## U.S. Acts positively contributed to advances in education
+
+There were a number of other interventions targeted at reducing early school leaving and increasing post secondary pursuits. One of these interventions was The Adult Education and Family Literacy Act of 1998 - a primary federal law supporting basic education for out-of-school adults mainly at the secondary level. The act contributed to the decline we see in less than high school students from 2000 to 2004.
+
+Another was The Carl D. Perkins Career and Technical Education Act of 2006 which contributed to an increase in community college enrollment [@perkins]. The $1.1 billion of funding in 2012 provided individuals with career and technical education programs like business administration. Federal Acts like the Education Opportunity Act of 2008 - an initiative designed for colleges and high school students that provided financial assistance for post-secondary education - was in response to the financial crisis of 2008 when families and individuals were limited in their ability to afford a post-secondary education. The impact was not immediate due to the time it took to roll out the plan and for the resources to be allocated equally.
+
+## Women are more likely to graduate
+
+Despite some small variations, overall, there were increasingly more females than males pursuing education. The labour markets reward women with relatively higher financial returns for college enrollment. According to the Federal Reserve Bank of St Louis [@st-louis], the difference in female hourly wage relative to male hourly wage decreases as women pursue higher education. Women with only a high school diploma made about 24% less per hour compared with men in that same education group. Relative to men, women earn an additional 5.3% return by getting an associate or a bachelor’s degree; that is, women with an associate degree made 28% more relative to women with only a high school degree, whereas women with a bachelor’s degree made 68% more. This is why there is a higher number of women with a bachelors or graduate degree compared to associate/junior college, almost or around double across all years. More education is an important way to close the gender pay gap 
+
+Men have more access to careers that don’t require a college degree, like construction work. There are still high paying jobs available to men without college credentials, while there are relatively few compared to women. Over the years more women have participated in the labor force, and there has been a shift in gender roles, with women no longer expected to marry at a younger age [@st-louis]. 
+
+## Education is directly correlated with income level
 
 The National Centre for Education statistics shows that education is directly tied to household income and that household income is directly tied to race. The median household income in the United States is \$48,298, yet the median household income for white individuals is over 40% higher at \$77,999.
 
-Public schools in the United States are funded through property taxes. This results in higher income neighborhoods ending up with more access to resources and better-funded schools. At the same, due to previous redlining policies, racialized neighborhoods are devalued, driving down the value of homes, leading to less taxes and underfunded educational institutions. In other words, it is not a coincidence that white individuals, living in richer neighborhoods, have a better education experience resulting in higher rates of graduates when compared to racialized groups.\
+Public schools in the United States are funded through property taxes. This results in higher income neighborhoods ending up with more access to resources and better-funded schools. At the same, due to previous redlining policies, racialized neighborhoods are devalued, driving down the value of homes, leading to less taxes and underfunded educational institutions. In other words, it is not a coincidence that white individuals, living in richer neighborhoods, have a better education experience resulting in higher rates of graduates when compared to racialized groups.\ 
+
+# Limitations
+
+The highest degree variable in the GSS survey is a valuable tool for researchers investigating education and social outcomes. However, it is important to recognize that the variable has some limitations that can affect the accuracy and reliability of the findings. One of these limitations is that the data relies on self-reported information from respondents, which can lead to inaccuracies due to misreporting or biases in the data. Additionally, the highest degree variable only captures formal education and does not account for non-traditional educational experiences, such as vocational training or apprenticeships, which can affect the relationship between education and outcomes like income and employment.
+
+Furthermore, the highest degree variable is limited in the level of detail it provides, as it does not offer insight into the quality of education or the specific field of study. This can be an important factor when studying the correlation between education and outcomes. Furthermore, there may be biases in the survey data due to sampling or response issues, which can impact the generalizability of the findings.
+
+Therefore, while the highest degree variable in the GSS survey is a useful resource for researchers, it is crucial to be aware of the limitations and potential biases in the data. Researchers should exercise caution when drawing conclusions based on this variable and consider alternative data sources when necessary.\
 
 # Ethics & Bias
 
